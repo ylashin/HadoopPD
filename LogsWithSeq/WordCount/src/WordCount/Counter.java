@@ -66,15 +66,10 @@ public class Counter {
     		Collections.sort(times);
             Instant first = times.get(0);
             Instant last = times.get(times.size()-1);
-            
         	Duration duration = Duration.between(first, last);
-        	
-        	
-    	    
     	    StringBuilder sb = new StringBuilder();
     	    for(String key:keys)
     	    	sb.append(key + ",");
-    	    
     	    ILogger logger = new LoggerConfiguration().writeTo(seq("http://192.168.1.6:5341/")).setMinimumLevel(LogEventLevel.Verbose)
         			.createLogger();
     	    logger.information("Reduced : {duration} in milliseconds" ,  duration.toMillis());
@@ -84,8 +79,6 @@ public class Counter {
     	{
     		System.out.println("Cleanup exception:" + ex.toString());
     	}
-    	
-	    
     }  
     public void reduce(Text key, Iterable<IntWritable> values,
                        Context context

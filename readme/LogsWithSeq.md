@@ -10,6 +10,11 @@ Hadoop MapReduce has its own logging feature and it even supports aggregating lo
 
 To summarise, my objective is to get familiar of the MapReduce world and extend it with structured logs by seq.
 
+My objective is to compare mapper or reducer performance across nodes in a cluster from a central log repository to allows structured queries like seq.
+
+So, it would be nice to issue query to find the slowest node doing mapping/reducing in case a job is slow beyond normal.
+The root cause can be anything from a hardware issue to a data pattern and hadoop itself might try to help and re-schdule the work on another node but it is also nice to have other clues.
+
 
 ![Seq Logs](../images/seq1.png)
 
@@ -31,14 +36,14 @@ So, our first task here is to switch hadoop from java 7 (1.7) to java 8(1.8).
 I am no java expert so I just tried some googling here and there to make it happen and I do not claim this is reliable but it is enough for our example.
 
 In brief the steps to switch to java 8 are:
-1. Install java 8 from Oracle site.
-2. Run the following command to select default java runtime : **alternatives --config java**
-3. Update the environment variables for JAVA_HOME
-   + export JAVA_HOME=**your java 8 folder**
-   + export PATH=$JAVA_HOME/bin:$PATH
-4. I followed [this link](http://unix.stackexchange.com/questions/110512/uninstall-jdk-rpm-to-reinstall) to uninstall java 7
-5. Perform the few steps mentioned in [Horton Works docs](https://docs.hortonworks.com/HDPDocuments/Ambari-2.2.1.1/bk_ambari_reference_guide/content/ch_changing_the_jdk_version_on_an_existing_cluster.html) to switch JDK version of ambari.
-6. Restart your VM and try to make sure Ambari is still alive and you can browse and view HDFS folders at least.
++ Install java 8 from Oracle site.
++ Run the following command to select default java runtime : **alternatives --config java**
++ Update the environment variables for JAVA_HOME
+   - export JAVA_HOME=**your java 8 folder**
+   - export PATH=$JAVA_HOME/bin:$PATH
++ I followed [this link](http://unix.stackexchange.com/questions/110512/uninstall-jdk-rpm-to-reinstall) to uninstall java 7
++ Perform the few steps mentioned in [Horton Works docs](https://docs.hortonworks.com/HDPDocuments/Ambari-2.2.1.1/bk_ambari_reference_guide/content/ch_changing_the_jdk_version_on_an_existing_cluster.html) to switch JDK version of ambari.
++ Restart your VM and try to make sure Ambari is still alive and you can browse and view HDFS folders at least.
 
 
 ##Eclipse and serilogj
@@ -46,7 +51,7 @@ In brief the steps to switch to java 8 are:
 Next step is to install Eclipse to be able to write our basic word count sample. Please note that we are using hadoop v2 distribution in case you will be copying word count from pages for v1.
 Generally speaking it should work but many package names and JARs are different so you should be prepared.
 
-I am including full source code of the working sample in folder [LogsWithSeq](LogsWithSeq) so this should not be a big deal.
+I am including full source code of the working sample in folder [LogsWithSeq](./LogsWithSeq) so this should not be a big deal.
 
 Back to Eclipse, go to the official site and download Luna for example (we do not need high end EE things, the basic java projects will be fine).
 
@@ -73,8 +78,74 @@ Make sure that all projects compile and try to export both projects as a single 
 Input and output folders are HDFS folders created using the shell (**hdfs dfs -mkdir**) or using HDFS view on ambari.
 Also the input folder should contain any text file with a bunch of words. You can put anything but the classic example is to grab a novel in text format from project gutenberg.
 
+## Integrating with seq
 
+You will need to have seq installed somewhere accessible from your VM and probably this should be your windows host.
+
+Next you need to modify the word count reducer class and add the following few lines:
 
  ```java
- placeholder
+     private ArrayList<String> keys = new ArrayList<String>();
+     private ArrayList<Instant> times = new ArrayList<Instant>();
+
+     @Override
+     protected void cleanup(org.apache.hadoop.mapreduce.Reducer<Text,IntWritable,Text,IntWritable>.Context context) throws IOException ,InterruptedException
+     {
+     	try
+     	{
+     	    Collections.sort(times);
+             Instant first = times.get(0);
+             Instant last = times.get(times.size()-1);
+             Duration duration = Duration.between(first, last);
+     	    StringBuilder sb = new StringBuilder();
+     	    for(String key:keys)
+     	    	sb.append(key + ",");
+     	    ILogger logger = new LoggerConfiguration().writeTo(seq("http://192.168.1.6:5341/")).setMinimumLevel(LogEventLevel.Verbose)
+         			.createLogger();
+     	    logger.information("Reduced : {duration} in milliseconds" ,  duration.toMillis());
+     	    logger.information("Reduced : {keys}" ,  sb.toString());
+     	}
+     	catch(Exception ex)
+     	{
+     		System.out.println("Cleanup exception:" + ex.toString());
+     	}
+     }
  ```
+
+The above will just declare some variables to collect the keys fed to the reducer and the times at which those keys are fed.
+
+We are overriding the cleanup method that is called after the reducer is done to log the keys processed and duration it to the reducer to process all of them.
+
+I know that this is big data and it is probably bad idea to log all keys (they will not be in millions per reducer) but this is fine for our naive scenario here.
+
+You can see that we hardcoded a URL for seq server but this can be sent as a parameter to the job in the command line or so.
+
+
+The reduce method is also updated slightly to collect keys and timestamps into the member variables above
+
+```java
+public void reduce(Text key, Iterable<IntWritable> values,Context context) throws IOException, InterruptedException
+{
+    int sum = 0;
+    for (IntWritable val : values) {
+      sum += val.get();
+    }
+    result.set(sum);
+    context.write(key, result);
+
+    keys.add(key.toString());
+    times.add(Instant.now());
+}
+```
+
+After compiling and exporting the new JAR and using runnign a new job for a sample book like Wizard of Oz we will get something like the below
+
+You can expand any line to see more details and you can use seq features to filter for reducers with slow processing times.
+
+**Rough edges ahead!!** this is just a quick POC plus the serilogj library is pretty fresh.
+
+![Seq Logs](../images/durations.png)
+
+![Seq Logs](../images/keys.png)
+
+
