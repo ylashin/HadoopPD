@@ -92,4 +92,4 @@ Phew, you are ready now to jump into the big data ocean.
 
 ## End of Part 1
 
-You now have a VM with Spark installation & Scala IDE, and ready to get started. Proceed to [Work count in Scala](spark-streaming-part2.md)
+You now have a VM with Spark installation & Scala IDE, and ready to get started. Proceed to [Word count in Scala](spark-streaming-part2.md)
