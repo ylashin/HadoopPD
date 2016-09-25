@@ -1,4 +1,4 @@
-# Spark streaming to a Power BI dashboard
+# Spark streaming to Power BI dashboard
 
 ## Overview
 
@@ -9,13 +9,13 @@ So the overall objective is to do some basic **realtime** Power BI dashboard sho
 
 The final output should be as below:
 
-<TODO - image>
+** TODO image **
 
 
 1. [Preparing Spark Environment](spark-streaming-part1.md)
-2. [Work count in Scala](spark-streaming-part2.md)
-3. [Streaming tweets to console](spark-streaming-part3.md)
-4. [Configrue Power Bi Dashbaord with streaming dataset](spark-streaming-part4.md)
+2. [Word count in Scala](spark-streaming-part2.md)
+3. [Streaming tweets to the console](spark-streaming-part3.md)
+4. [Configure Power Bi Dashbaord with a streaming dataset](spark-streaming-part4.md)
 5. [Connecting Spark aggregated data to Power BI](spark-streaming-part5.md)
 
 
