@@ -77,9 +77,14 @@ Once the sandbox is started you can try the below links in the browser to make s
 
 ## Install Scala IDE
 1. We will be using Scala to develop our streaming application so we need an IDE. Scala is a functional language running on JVM and it is the defacto standard for Spark applications.
-2. Open Firefox **inside the VM** and download Scala from [this page](http://scala-ide.org/download/sdk.html) 
+2. Open Firefox **inside the VM** and download Scala IDE from [this page](http://scala-ide.org/download/sdk.html) 
 3. Pick the link for 64bit linux.
-4. 
+4. Download the tar file and extract it to some folder of your choice.
+5. Once extracted, there will be a folder called Eclipse containing an executable with the same name.
+6. Right click that executable and select **Make link** then copy the new link file to desktop.
+7. You can rename the new link to Scala IDE.
+8. Double click the new link to Open Scala IDE.
+9. You will be asked to select a workspace location. You are free to change it or proceed with the default */root/workspace* location.
 
 
 Phew, you are ready now to jump into the big data ocean.
