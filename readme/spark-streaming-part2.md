@@ -1,7 +1,7 @@
-#1. Word count in Scala
+# 2. Word count in Scala
 
 In this part we will implement a scala word count app and run it using *spark-submit* tool.
-The source code is found in the below repo but is trimmed from all twitter keys.
+The source code is found in the below repo but is trimmed from all twitter keys that will come in later parts.
 
 TODO : put source code link
 
@@ -44,6 +44,7 @@ TODO : put source code link
 			<plugin>
 				<groupId>org.scala-tools</groupId>
 				<artifactId>maven-scala-plugin</artifactId>
+				<version>2.15.2</version>
 				<executions>
 					<execution>
 						<id>compile</id>
@@ -69,11 +70,25 @@ TODO : put source code link
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.spnotes.spark.NetcatStreamClient</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -134,7 +149,7 @@ TODO : put source code link
 
 ##Develop Word Count Example
 
-1. Rename the folders src/main/java to src/main/scala (click the folder and then Shift Alt R). Do the same for src/test/java.
+1. Rename the folder src/main/java to src/main/scala (click the folder and then Shift Alt R). Do the same for src/test/java.
 2. Right click the folder src/main/scala and then New > Package. For the package name, it should be a combination of our group Id and artifact Id.
 
     ![package](../images/spark-streaming-02-new-package.png)
@@ -181,7 +196,7 @@ TODO : put source code link
 
 1. Now we have a JAR file containing a simple Spark application. Next task is to run it using *spark-submit* which is the tool to send Spark jobs to the cluster manager.
 2. Unfortunately with Hortonworks HDP 2.5, Hadoop/Spark are not installed on the linux VM OS directly but in a docker container. So, we have to copy our jar file inside that container first.
-3. To SSH into the container, open a new browser window and head to : http://localhost:4200/, this can be done inside the VM or from the host box.
+3. To SSH into the container, open a new browser window and head to :[http://localhost:4200/](http://localhost:4200/), this can be done inside the VM or from the host box.
 4. Log in as root/hadoop also but this time you will be asked to change root password.
 
     ![docker-shell](../images/spark-streaming-02-docker-shell.png)
@@ -210,12 +225,12 @@ TODO : put source code link
 
     The parameters are quite clear, the class containing the program entry point and the jar file for that class.
 
-10. You should get the below in the console. Please not that Spark is very verbose with console messages and application output might be just burried within lots of INFO lines. Log verbosity can be tweaked but it is not our main concern here.
+10. You should get the below in the console. Please note that Spark is very verbose with console messages and application output might be just burried within lots of INFO lines. Log verbosity can be tweaked but it is not our main concern here.
 
     ![spark-word-count](../images/spark-streaming-02-spark-on-shell.png)
 
 
-Congratulations, you are doing big data now using the super duper Spark framework
+Congratulations, you are doing big data now using the super duper Spark framework.
 
 ## End of Part 2
 

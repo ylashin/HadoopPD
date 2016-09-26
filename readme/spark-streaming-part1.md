@@ -1,4 +1,4 @@
-#1. Preparing Spark Environment
+# 1. Preparing Spark Environment
 
 [Apache Spark](http://spark.apache.org/docs/1.6.2/index.html) is a fast and general-purpose cluster computing system. 
 It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports general execution graphs. 
@@ -67,7 +67,7 @@ Once the sandbox is started you can try the below links in the browser to make s
 5. Shut down the VM using the command **shutdown now**
 6. Start the VM from VirtualBox and you should get a GUI login page as below
     ![GENOME](../images/spark-streaming-01-GENOME.png)
-7. Click **Finish Configuration** button and after a while you will get a login screen with a pre-selected use name **packer**.
+7. Click **Finish Configuration** button and after a while you will get a login screen with a pre-selected user name **packer**.
 8. Click **not selected** link to login as another user and login with our lovely root/hadoop account.
 9. Follow the wizard to choose some OS settings like language and keyboard preferences.
 
