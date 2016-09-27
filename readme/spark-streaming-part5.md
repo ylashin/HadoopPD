@@ -106,4 +106,4 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
 
 ## Conclusion
 
-Spark is a decent tool to do distributed daat processing in near realtime (not necessarily streaming) and it can easily 
+Spark is a decent tool to do distributed data processing in near realtime (not necessarily streaming) and it can easily be integrated with other platforms like Azure or Power BI. 
