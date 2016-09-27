@@ -104,20 +104,24 @@ More details about Spark Streaming can be found [here](http://spark.apache.org/d
 
 4. Next we will start to append some snippets to the end of main method to incrementally build our streaming logic
 5. Append the below snippet:
+
     ```
         val batchInterval = 30
         val sc = new SparkContext(new SparkConf().setAppName("TrendingHashTags"))  	
         val ssc = new StreamingContext(sc, Seconds(batchInterval.toInt))
         ssc.checkpoint("hdfs:///tmp/trendingHashtags")
     ```
+
 6. The above defines a batch interval of 30 seconds in which we will collect tweets. Then we need to create a Spark Context. To do streaming, we will need a streaming context built on top of Spark context and configured for a certain batch interval. Then to make streaming resilient to errors spcially with stateful transformations (aggregations over a sliding window of one or more DStream from consequent time periods) we need to define a checkpoint directory which normally will be an HDFS folder. *TMP* folder should be available in HDFS installed with the sandbox so no need to create it.
 7. Then we will append the below snippet
+
     ```
         val tweets = TwitterUtils.createStream(ssc, None)
         val tweetContents = tweets.map{ tweet => tweet.getText()}
         val words = tweetContents.flatMap{content => content.split("""\s+""")}
         val hashTags = words.filter{word => word.startsWith("#")}
     ```
+
 8. The above will create a tweets *DStream* (distributed stream), extract tweet text, falttent it into words and then extract hashtags
 9. Let us append the below snippet to main method
 
@@ -128,6 +132,7 @@ More details about Spark Streaming can be found [here](http://spark.apache.org/d
             prevCount.map{c => c + counts.sum}.orElse{Some(counts.sum)}
         )
     ```
+    
 10. The above maps hashtags to tuples of the hastag value and the number 1 (its occurence count). 
     Then **updateStateByKey** accumulates over time each hastag and how manytimes it appeared. 
     This is actually the core of this application and it is pretty clear how concise and easy such abstracted API allow us to work with large amounts of streamed data.
