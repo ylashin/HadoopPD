@@ -68,6 +68,7 @@ So, Let's see the cool new stuff.
     ![bar-chart](../images/spark-streaming-04-.bar--chart.png)
 
 6. In the next step, give the tile a title and click Apply. It will be jsut an empty tile as below until we push some data.
+   We can also resize the tile a bit as it will probably show a handful of hashtags.
 
     ![empty-tile](../images/spark-streaming-04-empty-tile.png)
 
