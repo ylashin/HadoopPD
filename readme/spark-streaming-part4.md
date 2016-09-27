@@ -2,25 +2,25 @@
 
 In this part we will create a new Power BI dashboard and connect it to a streaming dataset and in the next part we will modify our Spark app to push data to this dashboard.
 
-Power BI has REST API that allowed developers to push data to datasets instead of Power BI service pulling data from a cloud or on-prem datasource.
+Power BI has REST API that allowed developers to push data to datasets instead of Power BI service pulling data from a cloud or on-prem data source.
 Unfortunately this API authenticates using Azure Active directory tokens and it is hard to do it in a headless manner without lots of logisitics and arrangements with an Azure tenant admin.
 Even if you have tenant admin permissions it is still harder than using shared access secrets and it would require also to create dataset and tables first before pushing data.
 
-Fortunately, Power BI has released a simpler API for pushing streaming data where we do not need complex auth mechanism and also the schema can be defined using a GUI in advance.
-So, Let's see the cool new stuff
+Fortunately, Power BI has recently released a simpler API for pushing streaming data where we do not need complex auth mechanism and also the schema can be defined using a GUI in advance.
+So, Let's see the cool new stuff.
 
 ## Sign-up for Power BI
 
-1. For our use case a free Power BI subscripiton will be fine but if you have a paid one it should be fine also
+1. For our use case a free Power BI subscripiton will be fine but if you have a paid one it should be good also.
 2. Please note that there are limits for pushing data to  a free vs paid subscriptions but we will not be hitting the service hard.
 3. Also, for Twitter firehose, it has similar limits but this is not a top priority for our POC.
-3. So, head up to ![Power BI home page](https://powerbi.microsoft.com/en-us/) and get yourself a free subscription.
+3. So, head up to [Power BI home page](https://powerbi.microsoft.com/en-us/) and get yourself a free subscription.
 
 
 ## Create a new dashboard
 
 1. Sign in to your new Power BI account.
-2. Expand the side menu then click the new dashboard button.
+2. Expand the side navigation pane then click the new dashboard button.
 
     ![new-dashboard](../images/spark-streaming-04-new-dashboard.png)
 
@@ -69,7 +69,7 @@ So, Let's see the cool new stuff
 
 6. In the next step, give the tile a title and click Apply. It will be jsut an empty tile as below until we push some data.
 
-    !(empty-tile)(../images/spark-streaming-04-empty-tile.png)
+    ![empty-tile](../images/spark-streaming-04-empty-tile.png)
 
 
 ## End of Part 4
