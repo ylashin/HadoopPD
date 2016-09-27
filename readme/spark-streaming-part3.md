@@ -205,6 +205,13 @@ More details about Spark Streaming can be found [here](http://spark.apache.org/d
         # spark-submit --class org.bigdata.sparky.trendingHashtags sparky.jar
     ```
 
-6. Wait for a while and keep an eye on the shell window, you will notice every 30 seconds a batch of hashtags/counts appears
+6. Wait for a while and keep an eye on the shell window, you will notice every 30 seconds a batch of hashtags/counts appears. The hashtags will be in many languages 
 
     ![hashtags](../images/spark-streaming-03-output-tweets.png)
+
+
+## End of Part 3
+
+We have implemented streaming an aggregation in Spark now and we are ready to push the result to some dashboard. 
+
+Proceed to [Configure Power Bi Dashboard with a streaming dataset](spark-streaming-part4.md)
