@@ -11,7 +11,7 @@ It simply works with a shared access key in the URL which makes it pretty easy t
 
 The final output should be as below:
 
-** TODO image **
+![final-result](../images/spark-streaming-05-SparkTweets.gif)
 
 
 1. [Preparing Spark Environment](spark-streaming-part1.md)
