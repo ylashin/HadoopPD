@@ -9,7 +9,7 @@ So the overall objective is to create some basic **realtime** Power BI dashboard
 The cool thing is that Power BI REST API has a streaming API feature now that does not need complex OAUTH access token and stuff like that.
 It simply works with a shared access key in the URL which makes it pretty easy to use it from any client capable of doing plain HTTP posts.
 
-The final output should be as below:
+The final output should be as below (it refreshes every 10 seconds):
 
 ![final-result](../images/spark-streaming-05-SparkTweets.gif)
 
