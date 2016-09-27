@@ -205,4 +205,6 @@ More details about Spark Streaming can be found [here](http://spark.apache.org/d
         # spark-submit --class org.bigdata.sparky.trendingHashtags sparky.jar
     ```
 
-6.
+6. Wait for a while and keep an eye on the shell window, you will notice every 30 seconds a batch of hashtags/counts appears
+
+    ![hashtags](../images/spark-streaming-03-output-tweets.png)

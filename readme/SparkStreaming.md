@@ -17,7 +17,7 @@ The final output should be as below:
 1. [Preparing Spark Environment](spark-streaming-part1.md)
 2. [Word count in Scala](spark-streaming-part2.md)
 3. [Streaming trending hashtags to the console](spark-streaming-part3.md)
-4. [Configure Power Bi Dashbaord with a streaming dataset](spark-streaming-part4.md)
+4. [Configure Power Bi Dashboard with a streaming dataset](spark-streaming-part4.md)
 5. [Connecting Spark aggregated data to Power BI](spark-streaming-part5.md)
 
 
