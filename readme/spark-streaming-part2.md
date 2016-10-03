@@ -3,7 +3,7 @@
 In this part we will implement a scala word count app and run it using *spark-submit* tool.
 The source code is found in the below repo but is trimmed from all twitter keys that will come in later parts.
 
-TODO : put source code link
+[Source Code](../SparkStreaming)
 
 ##Creating Scala Project
 
