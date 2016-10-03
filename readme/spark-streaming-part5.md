@@ -51,8 +51,8 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
             val post = new HttpPost("https://api.powerbi.com/beta/............................")  
             // set the Content-type
             post.setHeader("Content-type", "application/json")  
-            // add the JSON as a StringEntity
-            post.setEntity(new StringEntity(json)) 
+            // add the JSON as a StringEntity, UTF-8 is important for non ASCII tweets
+            post.setEntity(new StringEntity(json, "UTF-8")) 
             // send the post request
             val response = (new DefaultHttpClient).execute(post) 
             
@@ -93,10 +93,9 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
 
 6. Wait a couple of minutes until the application does its magic.
 7. Open Power BI dashboard created before and watch hashtags refreshing in realtime (every 30 seconds to be precise)
-8. Please note that some non ASCII hashtags might show as question marks in the dashboard but I am not going to troubleshoot this one now.
-9. Also our implementation is just accumulating hashtags from the time it starts till it is killed. A better implementation is to switched to the other mode of windowed operations that works on a a group of windows of one hour for example.
+8. Also our implementation is just accumulating hashtags from the time it starts till it is killed. A better implementation is to switched to the other mode of windowed operations that works on a a group of windows of one hour for example.
    This way you can find the trending hashtags for the last hour in a sliding window fashion.
-10. Moment of truth, drum rolls ......
+9. Moment of truth, drum rolls ......
 
     ![final-result](../images/spark-streaming-05-SparkTweets.gif)
 
@@ -106,4 +105,5 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
 
 ## Conclusion
 
-Spark is a decent tool to do distributed data processing in near realtime (not necessarily streaming) and it can easily be integrated with other platforms like Azure or Power BI. 
+Spark is a decent tool to do distributed data processing in near realtime (not necessarily streaming) and it can easily be integrated with other platforms like Azure or Power BI.
+The POC done was against twitter stream but the concept can be applied to any type of streamed input like IoT devices or server log files or web page clickstreams.  

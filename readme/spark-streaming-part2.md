@@ -218,7 +218,7 @@ TODO : put source code link
 
     ![docker-shell](../images/spark-streaming-02-docker-shell.png)
 5. Change root password and remember now that we have 2 roots passwords one for the VM OS and one for docker container
-6. Create a new directly called jars under root home folder
+6. Create a new directory called jars under root home folder
 
     `# mkdir jars`
 7.  Open a command shell in the VM and type the below command to copy the created JAR inside docker container.

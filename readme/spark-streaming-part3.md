@@ -70,7 +70,7 @@ More details about Spark Streaming can be found [here](http://spark.apache.org/d
 ## Implement streaming class
 
 1. Add a new Scala object to the package *org.bigdata.sparky* and name it *trendingHashtags*
-2. Add the following import statement after the package import line
+2. Add the following import statement after the package import line. If you see squigglies, right click the project name then Maven then *Update Project* to force download dependencies.
 
     ```
         import org.apache.spark.SparkContext
@@ -190,6 +190,8 @@ More details about Spark Streaming can be found [here](http://spark.apache.org/d
 6. Wait for a while and keep an eye on the shell window, you will notice every 30 seconds a batch of hashtags/counts appears. The hashtags will be in many languages 
 
     ![hashtags](../images/spark-streaming-03-output-tweets.png)
+
+7. To close the application simple press Ctrl+C. If you do not see any tweets appearing in the console, you can decrease the threshold we picked to dispaly trending tweets which is 10. Make it 5 or even 1 in the source code and compile and try again.
 
 
 ## End of Part 3
