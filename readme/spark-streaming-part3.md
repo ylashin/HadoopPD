@@ -164,29 +164,11 @@ More details about Spark Streaming can be found [here](http://spark.apache.org/d
   	    ssc.awaitTermination()
     ```
 
-
 ## Package & test the application
 
-1. Now we will do similar steps as in part 2, compile and export JAR, copy it to docker container and run it using spark-submit.
-2. First let us export the project as a **FAT** JAR. This time right click export will not do the trick as we need to bundle the dependencies.
-4. Open *pom.xml* but do not go to XML view, the dependencies tab is our target here
-
-    ![maven-dependencies](../images/spark-streaming-03-maven-dependencies.png)
-
-5. Select Spark_Core dependency then properties and change its scope to provided (meaning it is already available on target environment) then click OK
-
-    ![spark-core](../images/spark-streaming-03-spark-core.png)
-
-6. From the menu, select *Run* then *Run Configurations*
-7. From the left pane select maven build, then from the top toolbar there is a small button called "New launch configuration", click it
-8. Fill the new configuration dialog as below
-
-    ![fat-jar](../images/spark-streaming-03-fat-jar.png)
-
-9. Click Apply then Run to build the project 
-10. The fat jar will be generated in the path below, just cut it and move it to /root/Documents and rename it to **sparky.jar** 
-
-    ![final-jar](../images/spark-streaming-03-final-jar.png)
+1. We will follow the same steps done in part 2 to package a FAT JAR.
+2. From the Run menu pick Run Configurations then our *FAT JAR* build configuration and select run.
+   This time the file generated will be much bigger (around 90MB) as it has all dependencies bundeled. Copy the same file to /root/Documents and renamed it to *sparky.jar*
 
 3. Then from a terminal inside the sandbox, we need to copy that JAR to docker container
     ```

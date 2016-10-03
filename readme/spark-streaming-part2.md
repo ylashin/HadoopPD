@@ -147,7 +147,7 @@ TODO : put source code link
 
     ![scala-lib-container-remove](../images/spark-streaming-02-scala-container.png)
 
-##Develop Word Count Example
+## Develop Word Count Example
 
 1. Rename the folder src/main/java to src/main/scala (click the folder and then Shift Alt R). Do the same for src/test/java.
 2. Right click the folder src/main/scala and then New > Package. For the package name, it should be a combination of our group Id and artifact Id.
@@ -186,12 +186,29 @@ TODO : put source code link
     * Created a new Spark Context for the current application. Think of it as similar to things like EF DbContext if you are coming from .NET world.
     * Zeppelin has a ready made context to be used directly and it is named **sc** if you peek at part 1 details.
 6. Save the new updates to the word count class we have.
-7. Right click the project name then Export then select JAR file as output format
 
-    ![export-jar](../images/spark-streaming-02-export-jar.png)
 
-8. In the next step, fill a location for the exported JAR. I use */root/Documents/sparky.jar*, take care linux is case sensitive.
+## Package & test the application
 
+1. No we will need to package and export a FAT JAR (JAR with all dependencies), copy it to docker container and run it using spark-submit.
+   For the time being we have only one dependency which is Spark core and is already installed on target container but next parts will make use of the configurations we will do now as there will be some dependencies and libraries not availavle on target container.
+
+2. Open *pom.xml* but do not go to XML view, the dependencies tab is our target here
+3. Select Spark_Core dependency then properties and change its scope to provided (meaning it is already available on target environment) then click OK
+
+    ![spark-core](../images/spark-streaming-02-core-provided.png)
+
+4. From the menu, select *Run* then *Run Configurations*
+5. From the left pane select maven build, then from the top toolbar there is a small button called "New launch configuration", click it
+6. Fill the new configuration dialog as below
+
+    ![fat-jar](../images/spark-streaming-03-fat-jar.png)
+
+7. Click Apply then Run to build the project 
+8. The fat jar will be generated in the path */root/workspace/sparky/target/sparky-0.0.1-SNAPSHOT-jar-with-dependencies.jar*, actually MAVEN build log in the console will have a line telling where to grab the file in case you are using different folders. 
+9. Just cut it and move it to /root/Documents and rename it to **sparky.jar**. You can use Shell commands or GUI file explorer to do this step.
+
+  
 ##Run Word Count Example
 
 1. Now we have a JAR file containing a simple Spark application. Next task is to run it using *spark-submit* which is the tool to send Spark jobs to the cluster manager.
