@@ -6,7 +6,7 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
 
 ## Create a class to talk to Power BI API
 
-1. Let's Start up our sandbox VM and fire up our Scala IDE with Sparky application.
+1. Let's Start up our sandbox VM and fire up our Scala IDE with Sparky application if not currently running.
 2. First thing we will bring a small dependency to make our life easy with HTTP POSTs.
 3. Add the below piece of XML to *pom.xml* file before dependencies closing tag and save the file.
 
@@ -63,10 +63,10 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
 
 9. The above is a very simple helper class with a method that takes an array of tuples and does the following:
     * Map tuples to a string array where each item is a json representation of a single record to be pushed to Power BI
-    * Conact all items into a json array string
+    * Concatenate all items into a json array string
     * Create an HTTP Post object with the URL we have from Power BI streaming dataset (it is trimmed, grab your own URL)
     * Add an HTTP content-type header and lump the body and fire a POST call to Power BI
-10. Save the file and make no errors appear in the console. Scala IDE (Eclipse with Maven) are a bit lousy and they can take a few seconds to refresh and grab the dependencies.
+10. Save the file and make sure no errors appear in the console. Scala IDE (Eclipse with Maven) are a bit lousy and they can take a few seconds to refresh and grab the dependencies.
 
 
 ## Push top hashtag statistics
@@ -82,7 +82,7 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
     })
 ```
 
-3. Those few lines are flattening the DStream object into a group of normal RDDs and for each RDD we call rdd.take() which picks top N & converts RDD into an array of underlying objects. Then we take this plain array of tuples and use HttpSender class created above to do the simple HTTP POST.
+3. Those few lines are flattening the DStream object into a group of normal RDDs and for each RDD we call rdd.take() which picks top N records thus converting an RDD into an array of underlying objects. Then we take this plain array of tuples and use HttpSender class created above to do the simple HTTP POST.
 4. Package and copy the new fat jar to docker container as we saw in previous parts.
 5. In docker container, run the same command.
 
@@ -93,11 +93,11 @@ Now we need to extend our Spark application to push hashtags/counts to the API e
 
 6. Wait a couple of minutes until the application does its magic.
 7. Open Power BI dashboard created before and watch hashtags refreshing in realtime (every 30 seconds to be precise)
-8. Also our implementation is just accumulating hashtags from the time it starts till it is killed. A better implementation is to switched to the other mode of windowed operations that works on a a group of windows of one hour for example.
+8. Also our implementation is just accumulating hashtags from the time it starts till it is killed. A different implementation is to switch to the other mode of windowed operations that works on a a group of windows of one hour for example.
    This way you can find the trending hashtags for the last hour in a sliding window fashion.
 9. Moment of truth, drum rolls ......
 
-    ![final-result](../images/spark-streaming-05-SparkTweets.gif)
+    ![final-result](../images/final.gif)
 
 
 

@@ -1,4 +1,4 @@
-# 4. Configure Power Bi Dashboard with a streaming dataset 
+# 4. Configure Power BI Dashboard with a streaming dataset 
 
 In this part we will create a new Power BI dashboard and connect it to a streaming dataset and in the next part we will modify our Spark app to push data to this dashboard.
 
@@ -13,7 +13,7 @@ So, Let's see the cool new stuff.
 
 1. For our use case a free Power BI subscripiton will be fine but if you have a paid one it should be good also.
 2. Please note that there are limits for pushing data to  a free vs paid subscriptions but we will not be hitting the service hard.
-3. Also, for Twitter firehose, it has similar limits but this is not a top priority for our POC.
+3. Also for Twitter firehose, it has similar limits but this is not a top priority for our POC.
 3. So, head up to [Power BI home page](https://powerbi.microsoft.com/en-us/) and get yourself a free subscription.
 
 
@@ -24,7 +24,7 @@ So, Let's see the cool new stuff.
 
     ![new-dashboard](../images/spark-streaming-04-new-dashboard.png)
 
-3. Give it a name like *Trending Hashtags*
+3. Give it a name like **Trending Hashtags**
 4. A new blank dashboard page will open. Click *Add Tile* from the toolbar near the top of screen.
 5. Select the tile to be picking from a custom streaming data source and click Next.
 
@@ -50,7 +50,7 @@ So, Let's see the cool new stuff.
 
     ![post-info](../images/spark-streaming-04-post-info.png)
 
-11. So, all we need to do is to do an HTTP post to that URL (which contains a secret key) and fill HTTP payload with an array of json objects as per the simple format shown above. You will need to record down the POST URL and payload format becuase we will need them in part 5. 
+11. So, all we need is to do an HTTP post to that URL (which contains a secret key) and fill HTTP payload with an array of json objects as per the simple format shown above. You will need to record down the POST URL and payload format becuase we will need them in part 5. 
 
 
 
@@ -63,11 +63,11 @@ So, Let's see the cool new stuff.
 
     ![Hashtags](../images/spark-streaming-04-hashtags.png)
 
-5. Configure the tile as below and click Next
+5. Configure the tile as below and click Next. In my final report I switched to column chart not bar chart but this is a minor visual difference.
 
     ![bar-chart](../images/spark-streaming-04-.bar--chart.png)
 
-6. In the next step, give the tile a title and click Apply. It will be jsut an empty tile as below until we push some data.
+6. In the next step, give the tile a title and click Apply. It will be just an empty tile as below until we push some data.
    We can also resize the tile a bit as it will probably show a handful of hashtags.
 
     ![empty-tile](../images/spark-streaming-04-empty-tile.png)

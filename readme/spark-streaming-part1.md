@@ -1,10 +1,10 @@
 # 1. Preparing Spark Environment
 
-[Apache Spark](http://spark.apache.org/docs/1.6.2/index.html) is a fast and general-purpose cluster computing system. 
-It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports general execution graphs. 
+[Apache Spark](http://spark.apache.org/docs/1.6.2/index.html) is a fast and general-purpose computing platform. 
+It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports distributed computing. 
 It also supports a rich set of higher-level tools including Spark SQL for SQL and structured data processing, MLlib for machine learning, GraphX for graph processing, and Spark Streaming.
 
-I will be using Spark 1.6.2 although Spark 2.0 has been released and it provides a bunch of improvments but 1.6.2 should be very enough for our scenario.
+I will be using Spark 1.6.2 although Spark 2.0 has been released and it provides a bunch of improvments but 1.6.2 should be enough for our scenario.
 Spark is a Scala application and can be installed standalone but generally speaking it will be bundled in a Hadoop installation.
 I will use Hortonworks Sandbox becuase it is easy to use, contains other bits installed like HDFS/Zeppelin and comes with Ambari to view and monitor the whole cluster. 
 
@@ -49,20 +49,20 @@ Once the sandbox is started you can try the below links in the browser to make s
     counts.collect().foreach(println)
     ```
 
-    * The above simply creates an RDD (RDD is an array of objects) of strings, splits them into an RDD of words. Think of .NET linq SelectMany
+    * The above simply creates an RDD (RDD is an array of objects) of strings, splits them into an RDD of words. Think of .NET LINQ SelectMany
     * Then words array is mapped to a tuple of (word,1) and reduced to a tuple of the word value and how many times it appeared.
-    * Click the run button for the current paragraph or the whole notebook and you should get the below meaning Spark works as expected
+    * Click the run button for the current paragraph or the whole notebook and you should get the below meaning Spark installation is working fine.
 
     ![Zeppelin](../images/spark-streaming-01-spark-word-count.png)
 
     * Close Zeppelin tab in the browser as it might interfer with Spark program we will be running later.
-    * For most realistic use cases, Spark programs will be written in Scala/Java/Python and run on the shell using **spark-submit** command.
+    * For our use case, Spark program will be written in Scala (Java/Python are options also) and run on the shell using **spark-submit** command.
 
 ## Install desktop system
 
 1. Sandbox comes with no GUI where Hadoop cluster is installed as a Docker container.
 2. Go to your VM running within VirtualBox and hit **Alt F5** (on Windows) to login to linux shell.
-3. Use the credentials root/hadoop to login.
+3. Use the credentials **root/hadoop** to login.
 4. Follow instructions in this [page](http://www.itzgeek.com/how-tos/linux/centos-how-tos/install-gnome-gui-on-centos-7-rhel-7.html) to install Gnome desktop but use the commands for **Cent OS** as this is the OS for our VM.
 5. Shut down the VM using the command **shutdown now**
 6. Start the VM from VirtualBox and you should get a GUI login page as below
@@ -73,7 +73,7 @@ Once the sandbox is started you can try the below links in the browser to make s
 
     ![GENOME](../images/spark-streaming-01-GENOME-logged-in.png)
 
-**Side Note** : You can configure VirtualBox guest additions on the VM to allow stuff like copy/paste from the host OS or to allow running the VM in full screen mode. The VM comes with no CD configured so you will need to add a SCSI controller with empty CD drive.
+**Side Note** : You can configure VirtualBox guest additions on the VM to allow stuff like copy/paste from the host OS or to allow running the VM in full screen mode. The VM comes with no CD configured so you will need to add a SCSI controller with empty CD drive and then once the VM is running you can select to insert Guest Additions CD from VirtualBox menu.
 
 ## Install Scala IDE
 1. We will be using Scala to develop our streaming application so we need an IDE. Scala is a functional language running on JVM and it is the defacto standard for Spark applications.
@@ -84,7 +84,7 @@ Once the sandbox is started you can try the below links in the browser to make s
 6. Right click that executable and select **Make link** then copy the new link file to desktop.
 7. You can rename the new link to Scala IDE.
 8. Double click the new link to Open Scala IDE.
-9. You will be asked to select a workspace location. You are free to change it or proceed with the default */root/workspace* location.
+9. You will be asked to select a workspace location. You are free to change it or proceed with the default **/root/workspace** location.
 
 
 Phew, you are ready now to jump into the big data ocean.

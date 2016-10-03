@@ -19,7 +19,7 @@ The source code is found in the below repo but is trimmed from all twitter keys 
 
 ##Configure Maven build settings
 
-1. Expand the new project node and double click *pom.xml* file and switch xml view tab    
+1. Expand the new project node and double click *pom.xml* file and switch to xml view tab    
 2. Add the following before the closing project tag
 
     ```
@@ -137,7 +137,7 @@ The source code is found in the below repo but is trimmed from all twitter keys 
 
     ![project-error](../images/spark-streaming-02-project-error.png)
 
-7. Right click the project name in package explorer then Configure then *Add Scala nature*
+7. Right click the project name in package explorer then Configure then **Add Scala nature**
 8. Once done we will get some errors as Spark is built with a different version than the one selected for the current project
 9. To fix it, right click the project name again then Properties then Scala compiler
 10. Configure it as below and click OK and allow Eclipse to do full rebuild
@@ -154,7 +154,7 @@ The source code is found in the below repo but is trimmed from all twitter keys 
 
     ![package](../images/spark-streaming-02-new-package.png)
 
-3. Right click the new package folder and select New > Scala Object and give it a name *wordcount* as below
+3. Right click the new package folder and select New > Scala Object and give it a name **wordcount** as below
    
    ![word-count](../images/spark-streaming-02-word-count.png)
 4. Replace the whole file contents with the below snippet.
@@ -191,7 +191,7 @@ The source code is found in the below repo but is trimmed from all twitter keys 
 ## Package & test the application
 
 1. No we will need to package and export a FAT JAR (JAR with all dependencies), copy it to docker container and run it using spark-submit.
-   For the time being we have only one dependency which is Spark core and is already installed on target container but next parts will make use of the configurations we will do now as there will be some dependencies and libraries not availavle on target container.
+   For the time being we have only one dependency which is Spark core and is already installed on target container but next parts will make use of the configurations we will do now as there will be some dependencies and libraries not available on target container.
 
 2. Open *pom.xml* but do not go to XML view, the dependencies tab is our target here
 3. Select Spark_Core dependency then properties and change its scope to provided (meaning it is already available on target environment) then click OK
@@ -199,21 +199,21 @@ The source code is found in the below repo but is trimmed from all twitter keys 
     ![spark-core](../images/spark-streaming-02-core-provided.png)
 
 4. From the menu, select *Run* then *Run Configurations*
-5. From the left pane select maven build, then from the top toolbar there is a small button called "New launch configuration", click it
-6. Fill the new configuration dialog as below
+5. From the left pane select Maven build, then from the top toolbar there is a small button called "New launch configuration", click it
+6. Fill the new configuration dialog as below. Base directory should point to the folder containing our *sparky* project if you have a different workspace location.
 
     ![fat-jar](../images/spark-streaming-03-fat-jar.png)
 
 7. Click Apply then Run to build the project 
-8. The fat jar will be generated in the path */root/workspace/sparky/target/sparky-0.0.1-SNAPSHOT-jar-with-dependencies.jar*, actually MAVEN build log in the console will have a line telling where to grab the file in case you are using different folders. 
-9. Just cut it and move it to /root/Documents and rename it to **sparky.jar**. You can use Shell commands or GUI file explorer to do this step.
+8. The fat jar will be generated in the path */root/workspace/sparky/target/sparky-0.0.1-SNAPSHOT-jar-with-dependencies.jar*, actually Maven build log in the console will have a line telling where to grab the file in case you are using different folders. 
+9. Just copy the this file to /root/Documents and rename it to **sparky.jar**. You can use Shell commands or GUI file explorer to do this step.
 
   
 ##Run Word Count Example
 
-1. Now we have a JAR file containing a simple Spark application. Next task is to run it using *spark-submit* which is the tool to send Spark jobs to the cluster manager.
+1. Now we have a JAR file containing a simple Spark application. Next task is to run it using **spark-submit** which is the tool to send Spark jobs to the cluster manager.
 2. Unfortunately with Hortonworks HDP 2.5, Hadoop/Spark are not installed on the linux VM OS directly but in a docker container. So, we have to copy our jar file inside that container first.
-3. To SSH into the container, open a new browser window and head to :[http://localhost:4200/](http://localhost:4200/), this can be done inside the VM or from the host box.
+3. To SSH into the container, open a new browser window and head to : [http://localhost:4200/](http://localhost:4200/), this can be done inside the VM or from the host box.
 4. Log in as root/hadoop also but this time you will be asked to change root password.
 
     ![docker-shell](../images/spark-streaming-02-docker-shell.png)
@@ -237,7 +237,7 @@ The source code is found in the below repo but is trimmed from all twitter keys 
 9. Type the following in this docker shell:
 
     ```
-        spark-submit --class org.bigdata.sparky.wordcount sparky.jar
+        # spark-submit --class org.bigdata.sparky.wordcount sparky.jar
     ```
 
     The parameters are quite clear, the class containing the program entry point and the jar file for that class.
@@ -247,8 +247,8 @@ The source code is found in the below repo but is trimmed from all twitter keys 
     ![spark-word-count](../images/spark-streaming-02-spark-on-shell.png)
 
 
-Congratulations, you are doing big data now using the super duper Spark framework.
+Congratulations, you are doing big data now using Spark.
 
 ## End of Part 2
 
-We have implemented a Spark word count application in Scala. Proceed to [Streaming tweets to the console](spark-streaming-part3.md)
+We have implemented a Spark word count application in Scala. Proceed to [Streaming trending hashtags to the console](spark-streaming-part3.md)
