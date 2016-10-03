@@ -11,7 +11,7 @@ It simply works with a shared access key in the URL which makes it pretty easy t
 
 The final output should be as below (it refreshes every 10 seconds):
 
-![final-result](../images/spark-streaming-05-SparkTweets.gif)
+![final-result](../images/final.gif)
 
 
 1. [Preparing Spark Environment](spark-streaming-part1.md)
